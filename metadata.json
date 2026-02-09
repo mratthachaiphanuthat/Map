@@ -1,0 +1,9 @@
+{
+  "name": "GeoFlash AI",
+  "description": "A dual-mode application featuring an AI-powered map explorer using Google Maps Grounding and an intelligent Image Editor using Gemini 2.5 Flash Image.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
