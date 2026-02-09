@@ -22,11 +22,7 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-interface MapFeaturesProps {
-  isActive: boolean;
-}
-
-export const MapFeatures: React.FC<MapFeaturesProps> = ({ isActive }) => {
+export const MapFeatures: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);
@@ -68,15 +64,6 @@ export const MapFeatures: React.FC<MapFeaturesProps> = ({ isActive }) => {
       mapRef.current = null;
     };
   }, []);
-
-  // Handle Resize when active tab changes
-  useEffect(() => {
-    if (isActive && mapRef.current) {
-      setTimeout(() => {
-        mapRef.current?.invalidateSize();
-      }, 100);
-    }
-  }, [isActive]);
 
   const handleLocateMe = () => {
     if (!mapRef.current) return;
@@ -120,7 +107,7 @@ export const MapFeatures: React.FC<MapFeaturesProps> = ({ isActive }) => {
   };
 
   return (
-    <div className={`flex flex-col h-full w-full relative ${!isActive ? 'hidden' : ''}`}>
+    <div className="flex flex-col h-full w-full relative">
       {/* Map Layer */}
       <div className="absolute inset-0 z-0">
         <div ref={mapContainerRef} className="h-full w-full bg-slate-900" />
@@ -129,7 +116,10 @@ export const MapFeatures: React.FC<MapFeaturesProps> = ({ isActive }) => {
       {/* Overlay UI */}
       <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-between">
         {/* Top Controls */}
-        <div className="p-4 flex justify-end pointer-events-auto">
+        <div className="p-4 flex justify-between pointer-events-auto items-start">
+             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center font-bold text-white shadow-lg shadow-primary-500/20">
+             GF
+           </div>
             <button 
                 onClick={handleLocateMe}
                 className="bg-slate-800/90 text-white p-3 rounded-full hover:bg-slate-700 backdrop-blur-md shadow-lg border border-slate-700 transition-all"
